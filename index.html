@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GeeksforGeeks - Code Desk</title>
+  <meta
+    name="description"
+    content="Browse programming programs by subject with search, clean code formatting, and one-tap copy."
+  >
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container-layout">
+    <aside class="sidebar-left">
+      <div class="logo-section">
+        <h1 class="site-logo">GeeksforGeeks</h1>
+        <p class="site-tagline">Code Desk</p>
+      </div>
+
+      <div class="subject-accordion" id="subject-accordion">
+        <!-- Accordion items will be generated here -->
+      </div>
+    </aside>
+
+    <main id="main-content" class="main-content">
+      <header class="top-header">
+        <div class="header-title">
+          <h2 id="current-category">Select a Program</h2>
+        </div>
+        <div class="header-actions">
+          <input
+            id="search-input"
+            class="search-input"
+            type="search"
+            placeholder="Search programs..."
+            autocomplete="off"
+          >
+        </div>
+      </header>
+
+
+      <section class="status-row" aria-live="polite">
+        <p id="status-text">Select a program from the left menu</p>
+      </section>
+
+      <section id="program-section" class="program-section"></section>
+
+      <div id="empty-state" class="empty-state" hidden>
+        <h3>No program selected</h3>
+        <p>Click on a program from the left sidebar to view details.</p>
+      </div>
+    </main>
+
+    <aside class="sidebar-right">
+      <div class="ad-container" id="ad-container">
+        <!-- Advertisements will be inserted here -->
+      </div>
+    </aside>
+  </div>
+
+  <template id="program-template">
+    <article class="program-card">
+      <div class="card-header">
+        <div>
+          <p class="serial-badge"></p>
+          <h3 class="program-title"></h3>
+        </div>
+        <button class="copy-button" type="button">Copy Code</button>
+      </div>
+
+      <p class="program-description"></p>
+
+      <section class="info-block">
+        <h4>Explanation</h4>
+        <p class="program-explanation"></p>
+      </section>
+
+      <section class="info-block example-block">
+        <h4>Example</h4>
+        <div class="example-grid">
+          <div class="example-panel">
+            <span class="example-label">Input</span>
+            <pre class="example-value example-input"></pre>
+          </div>
+          <div class="example-panel">
+            <span class="example-label">Output</span>
+            <pre class="example-value example-output"></pre>
+          </div>
+        </div>
+      </section>
+
+      <div class="keyword-row" aria-label="Keywords"></div>
+
+      <div class="code-shell">
+        <pre><code class="program-code"></code></pre>
+      </div>
+    </article>
+  </template>
+
+  <script src="data/data-store.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

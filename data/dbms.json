@@ -1,0 +1,38 @@
+[
+  {
+    "serial": 1,
+    "title": "Create Student Table",
+    "description": "Create a student table with primary key and basic fields.",
+    "explanation": "This SQL statement defines a new table called Students with required columns and a primary key to uniquely identify each row.",
+    "example": {
+      "input": "Run CREATE TABLE Students ...",
+      "output": "Table Students created successfully."
+    },
+    "keywords": ["table", "ddl", "create"],
+    "code": "CREATE TABLE Students (\n    student_id INT PRIMARY KEY,\n    student_name VARCHAR(100) NOT NULL,\n    department VARCHAR(50),\n    semester INT\n);"
+  },
+  {
+    "serial": 2,
+    "title": "Insert Student Records",
+    "description": "Insert multiple sample student records into the table.",
+    "explanation": "The query adds multiple rows to the Students table in a single INSERT statement, making sample data entry faster.",
+    "example": {
+      "input": "Insert 3 student rows",
+      "output": "3 rows inserted."
+    },
+    "keywords": ["insert", "records", "dml"],
+    "code": "INSERT INTO Students (student_id, student_name, department, semester)\nVALUES\n    (1, 'Asha', 'CSE', 4),\n    (2, 'Rahul', 'ISE', 5),\n    (3, 'Meera', 'ECE', 3);"
+  },
+  {
+    "serial": 3,
+    "title": "Find Students by Department",
+    "description": "Retrieve all students belonging to the CSE department.",
+    "explanation": "The SELECT query filters rows using the WHERE clause so only students from the CSE department are returned.",
+    "example": {
+      "input": "department = 'CSE'",
+      "output": "1 | Asha | 4"
+    },
+    "keywords": ["select", "where", "query"],
+    "code": "SELECT student_id, student_name, semester\nFROM Students\nWHERE department = 'CSE';"
+  }
+]

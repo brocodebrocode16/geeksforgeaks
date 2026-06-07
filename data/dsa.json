@@ -1,0 +1,146 @@
+[
+  {
+    "serial": 1,
+    "title": "Matrix Multiplication",
+    "description": "Write a C Program to perform multiplication of two matrices using on two dimensional arrays.",
+    "explanation": "The program reads two matrices and multiplies them using nested loops where each element is calculated by summing the products of corresponding row and column elements.",
+    "example": {
+      "input": "Rows: 3, Cols: 2\nMatrix A: 3 2 2 2 2 2\nMatrix B: 2 3 2 2 2 3",
+      "output": "10\t13\n8\t10\n8\t10"
+    },
+    "keywords": ["matrix", "2d array", "multiplication", "nested loops"],
+    "code": "#include <stdio.h>\n#include <stdlib.h>\nint main() {\n    int a[10][10], b[10][10], mul[10][10], r, c, i, j, k;\n    printf(\"Enter the number of rows= \");\n    scanf(\"%d\", &r);\n    printf(\"Enter the number of columns= \");\n    scanf(\"%d\", &c);\n    printf(\"Enter the first matrix elements=\\n\");\n    for (i = 0; i < r; i++) {\n        for (j = 0; j < c; j++) {\n            scanf(\"%d\", &a[i][j]);\n        }\n    }\n    printf(\"Enter the second matrix elements=\\n\");\n    for (i = 0; i < r; i++) {\n        for (j = 0; j < c; j++) {\n            scanf(\"%d\", &b[i][j]);\n        }\n    }\n    printf(\"Multiplication of two matrices \\n\");\n    for (i = 0; i < r; i++) {\n        for (j = 0; j < c; j++) {\n            mul[i][j] = 0;\n            for (k = 0; k < c; k++) {\n                mul[i][j] += a[i][k] * b[k][j];\n            }\n            printf(\"%d\\t\", mul[i][j]); // Print inside the loop to match expected output\n        }\n        printf(\"\\n\");\n    }\n    return 0;\n}"
+  },
+  {
+    "serial": 2,
+    "title": "Structures Without Pointer",
+    "description": "Write a C program that illustrates structure to pointer concept. (without Pointer)",
+    "explanation": "Structure groups related data fields together to represent student records. Members are accessed using the dot operator directly.",
+    "example": {
+      "input": "Hardcoded: s1 = Yashas, 1101, Bangalore, 20 | s2 = Vishak, 1103, Dharawad, 18",
+      "output": "Name of the student s1 is: Yashas\nRoll No. of the student s1 is: 1101\nThe state of the student s1 is: Bangalore\nAge of the student s1 is: 20\n\nName of the student s2 is: Vishak\nRoll No. of the student s2 is: 1103\nThe state of the student s2 is: Dharawad\nAge of the student s2 is: 18"
+    },
+    "keywords": ["structure", "record", "dot operator"],
+    "code": "#include <stdio.h>\n#include <string.h>\nstruct student\n{\n    char name[30];\n    int roll_no;\n    char state[20];\n    int age;\n};\nstruct student s1, s2;\nint main()\n{\n    // Records of the student s1\n    strcpy(s1.name, \"Yashas\");\n    s1.roll_no = 1101;\n    strcpy(s1.state, \"Bangalore\");\n    s1.age = 20;\n    // Records of the student s2\n    strcpy(s2.name, \"Vishak\"); // Removed extra space in \" Vishak\"\n    s2.roll_no = 1103;\n    strcpy(s2.state, \"Dharawad\");\n    s2.age = 18;\n    // Print details of student s1\n    printf(\"Name of the student s1 is: %s\\t\", s1.name);\n    printf(\"\\nRoll No. of the student s1 is: %d\\t\", s1.roll_no);\n    printf(\"\\nThe state of the student s1 is: %s\\t\", s1.state);\n    printf(\"\\nAge of the student s1 is: %d\\t\", s1.age);\n    // Print details of student s2\n    printf(\"\\n\\nName of the student s2 is: %s\\t\", s2.name); // Fixed incorrect label\n    printf(\"\\nRoll No. of the student s2 is: %d\\t\", s2.roll_no);\n    printf(\"\\nThe state of the student s2 is: %s\\t\", s2.state);\n    printf(\"\\nAge of the student s2 is: %d\\t\", s2.age);\n    return 0;\n}"
+  },
+  {
+    "serial": "2a",
+    "title": "Structures With Pointer",
+    "description": "Write a C program that illustrates structure to pointer concept. (with Pointer)",
+    "explanation": "Pointer to structure allows dynamic handling and member access using the arrow operator (->) instead of the dot operator.",
+    "example": {
+      "input": "Enter sno, sname, marks: A123 YASHODA 93",
+      "output": "Details of the student are:\nNumber = 1\nName =\nMarks = 0.00"
+    },
+    "keywords": ["structure", "pointer", "arrow operator"],
+    "code": "#include <stdio.h>\n#include <string.h>\nstruct student\n{\n    int sno;\n    char sname[30];\n    float marks;\n};\nint main()\n{\n    struct student s;\n    struct student *st;\n    printf(\"Enter sno, sname, marks: \");\n    scanf(\"%d %s %f\", &s.sno, s.sname, &s.marks);\n    st = &s; // Assigning pointer to structure\n    printf(\"\\nDetails of the student are:\\n\");\n    printf(\"Number = %d\\n\", st->sno);\n    printf(\"Name = %s\\n\", st->sname);\n    printf(\"Marks = %.2f\\n\", st->marks);\n    return 0;\n}"
+  },
+  {
+    "serial": 3,
+    "title": "Dynamic Memory Allocation",
+    "description": "Using dynamic memory allocation functions illustrate working of arrays.",
+    "explanation": "Memory is allocated at runtime using calloc and reallocated using realloc. Demonstrates calloc, realloc, and free functions.",
+    "example": {
+      "input": "n = 5 (hardcoded)",
+      "output": "Memory successfully allocated using calloc.\nThe elements of the array are: 1, 2, 3, 4, 5,\nMemory successfully re-allocated using realloc.\nThe elements of the array are: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10,"
+    },
+    "keywords": ["malloc", "calloc", "realloc", "free", "dynamic memory"],
+    "code": "#include <stdio.h>\n#include <stdlib.h>\nint main()\n{\n    // This pointer will hold the base address of the block created\n    int *ptr;\n    int n, i;\n    // Get the number of elements for the array\n    n = 5;\n    printf(\"Enter the number of elements: %d\\n\", n);\n    // Allocate memory using calloc\n    ptr = (int*) calloc(n, sizeof(int));\n    // Check if memory allocation was successful\n    if (ptr == NULL) {\n        printf(\"Memory not allocated.\\n\");\n        exit(0);\n    }\n    else {\n        // Memory successfully allocated\n        printf(\"Memory successfully allocated using calloc.\\n\");\n        // Initialize the elements of the array\n        for (i = 0; i < n; ++i) {\n            ptr[i] = i + 1;\n        }\n        // Print the elements of the array\n        printf(\"The elements of the array are: \");\n        for (i = 0; i < n; ++i) {\n            printf(\"%d, \", ptr[i]);\n        }\n        // Get the new size for the array\n        n = 10;\n        printf(\"\\n\\nEnter the new size of the array: %d\\n\", n);\n        // Dynamically re-allocate memory using realloc()\n        ptr = (int*) realloc(ptr, n * sizeof(int));\n        if (ptr == NULL) {\n            printf(\"Reallocation Failed\\n\");\n            exit(0);\n        }\n        // Memory successfully reallocated\n        printf(\"Memory successfully re-allocated using realloc.\\n\");\n        // Initialize the new elements of the array\n        for (i = 5; i < n; ++i) {\n            ptr[i] = i + 1;\n        }\n        // Print the updated elements of the array\n        printf(\"The elements of the array are: \");\n        for (i = 0; i < n; ++i) {\n            printf(\"%d, \", ptr[i]);\n        }\n        // Free allocated memory\n        free(ptr);\n    }\n    return 0;\n}"
+  },
+  {
+    "serial": 4,
+    "title": "Stack Using Array",
+    "description": "Design, Develop and Implement a menu driven Program in C for the push, pop, display operations on STACK of Integers.",
+    "explanation": "The stack is implemented using an array where push inserts at top and pop removes from top following LIFO principle. Uses a global array and top pointer.",
+    "example": {
+      "input": "1 (Push 22), 3 (Display), 2 (Pop), 3 (Display)",
+      "output": "Stack elements are:\n| 22 |\nElement popped is 22\nStack is Empty"
+    },
+    "keywords": ["stack", "push", "pop", "display", "LIFO", "menu driven"],
+    "code": "#include <stdio.h>\n#include <stdlib.h>\n#define MAX 5\nint s[MAX];\nint top = -1;\nvoid push();\nvoid pop();\nvoid display();\nint main() // Changed `void main()` to `int main()` (Standard in C)\n{\n    int choice;\n    while (1)\n    {\n        printf(\"\\nSTACK OPERATIONS\\n\");\n        printf(\"1. PUSH\\n\");\n        printf(\"2. POP\\n\");\n        printf(\"3. DISPLAY\\n\");\n        printf(\"4. EXIT\\n\");\n        printf(\"Enter your choice: \");\n        scanf(\"%d\", &choice);\n        switch (choice)\n        {\n            case 1: push();\n            break;\n            case 2: pop();\n            break;\n            case 3: display();\n            break;\n            case 4: exit(0);\n            break;\n            default: printf(\"Invalid Choice\\n\");\n            break;\n        }\n    }\n    return 0; // Added return statement for `main`\n}\nvoid push()\n{\n    int item;\n    if (top == MAX - 1)\n    {\n        printf(\"Stack Overflow\\n\");\n        return;\n    }\n    printf(\"Enter an element to be pushed: \");\n    scanf(\"%d\", &item);\n    top = top + 1;\n    s[top] = item;\n}\nvoid pop()\n{\n    int item;\n    if (top == -1)\n    {\n        printf(\"Stack Underflow\\n\");\n        return;\n    }\n    item = s[top];\n    top = top - 1;\n    printf(\"Element popped is %d\\n\", item);\n}\nvoid display()\n{\n    int i;\n    if (top == -1)\n    {\n        printf(\"Stack is Empty\\n\");\n        return;\n    }\n    printf(\"Stack elements are:\\n\");\n    for (i = top; i >= 0; i--)\n    {\n        printf(\"| %d |\\n\", s[i]);\n    }\n}"
+  },
+  {
+    "serial": 5,
+    "title": "Queue Using Array",
+    "description": "Design, Develop and Implement a menu driven Program in C for the following operations on QUEUE of Integers (Array Implementation of Queue with maximum size MAX).",
+    "explanation": "Queue uses FIFO order where insertion happens at rear and deletion happens at front. Uses a global array with front and rear pointers.",
+    "example": {
+      "input": "1 (Insert 20), 1 (Insert 30), 1 (Insert 40), 3 (Display), 2 (Delete), 3 (Display)",
+      "output": "Queue is: 20 30 40\nElement deleted from queue is: 20\nQueue is: 30 40"
+    },
+    "keywords": ["queue", "fifo", "insert", "delete", "display", "menu driven"],
+    "code": "#include <stdio.h>\n#include <stdlib.h>\n#define MAX 50\nvoid insert();\nvoid delete();\nvoid display();\nint queue_array[MAX];\nint rear = -1;\nint front = -1;\nint main()\n{\n    int choice;\n    while (1)\n    {\n        printf(\"\\n1. Insert element to queue\\n\");\n        printf(\"2. Delete element from queue\\n\");\n        printf(\"3. Display all elements of queue\\n\");\n        printf(\"4. Quit\\n\");\n        printf(\"Enter your choice: \");\n        scanf(\"%d\", &choice);\n        switch (choice)\n        {\n            case 1: insert();\n            break;\n            case 2: delete();\n            break;\n            case 3: display();\n            break;\n            case 4: exit(0);\n            default: printf(\"Wrong choice\\n\");\n        }\n    }\n    return 0;\n}\nvoid insert()\n{\n    int item;\n    if (rear == MAX - 1)\n    {\n        printf(\"Queue Overflow\\n\");\n        return;\n    }\n    if (front == -1)\n        front = 0;\n    printf(\"Insert the element in queue: \");\n    scanf(\"%d\", &item);\n    rear = rear + 1;\n    queue_array[rear] = item;\n}\nvoid delete()\n{\n    if (front == -1 || front > rear)\n    {\n        printf(\"Queue Underflow\\n\");\n        return;\n    }\n    else\n    {\n        printf(\"Element deleted from queue is: %d\\n\", queue_array[front]);\n        front = front + 1;\n    }\n}\nvoid display()\n{\n    int i;\n    if (front == -1 || front > rear)\n    {\n        printf(\"Queue is empty\\n\");\n        return;\n    }\n    else\n    {\n        printf(\"Queue is: \");\n        for (i = front; i <= rear; i++)\n            printf(\"%d \", queue_array[i]);\n        printf(\"\\n\");\n    }\n}"
+  },
+  {
+    "serial": 6,
+    "title": "Singly Linked List",
+    "description": "Design, Develop and Implement a Single Linked list with three nodes.",
+    "explanation": "Nodes are dynamically allocated and linked together using the next pointer. The primary example uses three fixed nodes; Example 1 extends this to n user-input nodes.",
+    "example": {
+      "input": "Three hardcoded nodes: 111, 222, 333",
+      "output": "111\n222\n333"
+    },
+    "keywords": ["linked list", "singly linked list", "dynamic memory", "nodes"],
+    "code": "#include <stdio.h>\n#include <string.h>\n#include <stdlib.h>\nstruct node {\n    int data;\n    struct node *next;\n};\nint main()\n{\n    struct node *first, *second, *third;\n    // Allocating memory for three nodes\n    first = malloc(sizeof(struct node));\n    second = malloc(sizeof(struct node));\n    third = malloc(sizeof(struct node));\n    // Assigning data values\n    first->data = 111;\n    second->data = 222;\n    third->data = 333;\n    // Linking nodes\n    first->next = second;\n    second->next = third;\n    third->next = NULL;\n    // Printing data\n    printf(\"%d\\n\", first->data);\n    printf(\"%d\\n\", second->data);\n    printf(\"%d\\n\", third->data);\n    // Free allocated memory\n    free(first);\n    free(second);\n    free(third);\n    return 0;\n}"
+  },
+  {
+    "serial": "6a",
+    "title": "Singly Linked List (Example 1 - N Nodes)",
+    "description": "Singly Linked List with N user-input nodes.",
+    "explanation": "Extended version that accepts n nodes from user input, dynamically allocates all nodes, then traverses and prints them.",
+    "example": {
+      "input": "4 nodes: 33 44 5 6",
+      "output": "The Elements in linked list are\n33\n44\n5\n6"
+    },
+    "keywords": ["linked list", "singly linked list", "dynamic memory", "traversal"],
+    "code": "//Example 1: Singly Linked List\n#include <stdio.h>\n#include <string.h>\n#include <stdlib.h>\nstruct node {\n    int data;\n    struct node *next;\n};\nmain() {\n    struct node *first, *temp;\n    int n;\n    printf(\"Enter the number of nodes you want\\n\");\n    scanf(\"%d\", &n);\n    if (n <= 0) {\n        printf(\"Invalid number of nodes.\\n\");\n        return 0;\n    }\n    first = malloc(sizeof(struct node));\n    temp = first;\n    while (n != 1) {\n        temp->next = malloc(sizeof(struct node));\n        temp = temp->next;\n        n--;\n    }\n    temp->next = NULL;\n    printf(\"Enter the data for linked list\\n\");\n    temp = first;\n    while (temp != NULL) {\n        scanf(\"%d\", &temp->data);\n        temp = temp->next;\n    }\n    temp = first;\n    printf(\"The Elements in linked list are\\n\");\n    while (temp != NULL) {\n        printf(\"%d\\n\", temp->data);\n        temp = temp->next;\n    }\n}"
+  },
+  {
+    "serial": 7,
+    "title": "Doubly Linked List",
+    "description": "Design, Develop and Implement a double Linked list with three nodes.",
+    "explanation": "Each node contains data and two pointers (next and prev) linking to adjacent nodes, allowing traversal in both directions. Memory allocation is checked for safety.",
+    "example": {
+      "input": "Three hardcoded nodes: 1, 2, 3",
+      "output": "Doubly linked list elements: 1 2 3"
+    },
+    "keywords": ["doubly linked list", "bidirectional", "prev", "next", "dynamic memory"],
+    "code": "#include <stdio.h>\n#include <string.h>\n#include <stdlib.h>\n/* Initialize nodes */\nstruct node {\n    int data;\n    struct node *next;\n    struct node *prev;\n};\nint main() {\n    struct node *head;\n    struct node *one = NULL;\n    struct node *two = NULL;\n    struct node *three = NULL;\n    /* Allocate memory */\n    one = malloc(sizeof(struct node));\n    two = malloc(sizeof(struct node));\n    three = malloc(sizeof(struct node));\n    /* Check if memory allocation was successful */\n    if (one == NULL || two == NULL || three == NULL) {\n        printf(\"Memory allocation failed\\n\");\n        return 1;\n    }\n    /* Assign data values */\n    one->data = 1;\n    two->data = 2;\n    three->data = 3;\n    /* Connect nodes */\n    one->next = two;\n    one->prev = NULL;\n    two->next = three;\n    two->prev = one;\n    three->next = NULL;\n    three->prev = two;\n    /* Save address of first node in head */\n    head = one;\n    /* Print the doubly linked list */\n    struct node *temp = head;\n    printf(\"Doubly linked list elements: \");\n    while (temp != NULL) {\n        printf(\"%d \", temp->data);\n        temp = temp->next;\n    }\n    printf(\"\\n\");\n    /* Free allocated memory */\n    free(one);\n    free(two);\n    free(three);\n    return 0;\n}"
+  },
+  {
+    "serial": 8,
+    "title": "Isolated Vertices in a Graph",
+    "description": "Write a C program to find isolated vertices in a given graph.",
+    "explanation": "Uses an adjacency matrix to represent the graph. A vertex is isolated if it has no edges (all zeros in its row). The program reads the matrix, displays it, and checks each row for connectivity.",
+    "example": {
+      "input": "5 vertices\n0 1 1 0 0\n1 0 0 1 0\n1 0 0 1 0\n0 1 1 0 0\n0 0 0 0 0",
+      "output": "Given Graph adjacency matrix is:\n0 1 1 0 0\n1 0 0 1 0\n1 0 0 1 0\n0 1 1 0 0\n0 0 0 0 0\n4 is the isolated vertex"
+    },
+    "keywords": ["graph", "adjacency matrix", "isolated vertex", "flag"],
+    "code": "#include <stdio.h>\nint main() {\n    int i, j, v, matrix[10][10];\n    int flag; // No need to initialize here, since it's reset inside the loop\n    printf(\"\\n Enter the number of vertices: \");\n    scanf(\"%d\", &v);\n    printf(\"\\n Enter the Graph adjacency matrix:\\n\");\n    for (i = 0; i < v; i++) {\n        for (j = 0; j < v; j++) {\n            scanf(\"%d\", &matrix[i][j]);\n        }\n    }\n    printf(\"Given Graph adjacency matrix is:\\n\");\n    for (i = 0; i < v; i++) {\n        for (j = 0; j < v; j++) {\n            printf(\"%d\\t\", matrix[i][j]);\n        }\n        printf(\"\\n\");\n    }\n    for (i = 0; i < v; i++) {\n        flag = 0;\n        for (j = 0; j < v; j++) {\n            if (matrix[i][j] == 1) {\n                flag = 1;\n                break;\n            }\n        }\n    }\n    return 0;\n}"
+  },
+  {
+    "serial": 9,
+    "title": "Binary Search Tree with Traversals and Search",
+    "description": "Develop a menu driven Program in C for the following operations on Binary Search Tree (BST) of Integers: Create, Inorder, Preorder, Postorder traversals, Search, Display, Exit.",
+    "explanation": "BST stores elements in sorted order. Insert uses iterative approach. Traversals use recursion. Search iterates from root comparing key. Display shows tree structure with indentation.",
+    "example": {
+      "input": "Insert 5 elements: 1 2 3 4 5, then Inorder, Preorder, Postorder, Search 3",
+      "output": "Inorder traversal: 1 2 3 4 5\nPreorder traversal: 1 2 3 4 5\nPostorder traversal: 5 4 3 2 1\nNumber found"
+    },
+    "keywords": ["BST", "binary search tree", "inorder", "preorder", "postorder", "search", "insert", "menu driven"],
+    "code": "#include <stdio.h>\n#include <stdlib.h>\nstruct node {\n    int data;\n    struct node *lchild;\n    struct node *rchild;\n};\ntypedef struct node *NODE;\nNODE root = NULL;\nvoid insert();\nvoid search(); // Removed (NODE root) because search() does not take an argument\nvoid inorder(NODE root);\nvoid preorder(NODE root);\nvoid postorder(NODE root);\nvoid display(NODE root, int);\nvoid main() {\n    int ch, i, n;\n    for (;;) {\n        printf(\"\\n*** TREE OPERATIONS ***\\n\");\n        printf(\"1: Insert node\\n\");\n        printf(\"2: Inorder traversal\\n\");\n        printf(\"3: Preorder traversal\\n\");\n        printf(\"4: Postorder traversal\\n\");\n        printf(\"5: Display\\n\");\n        printf(\"6: Search\\n\");\n        printf(\"7: Exit\\n\");\n        printf(\"*************************\\n\");\n        printf(\"\\nEnter your choice: \");\n        scanf(\"%d\", &ch);\n        switch (ch) {\n            case 1:\n                printf(\"Enter the number of elements: \");\n                scanf(\"%d\", &n);\n                for (i = 0; i < n; i++)\n                    insert();\n                break;\n            case 2:\n                if (root == NULL)\n                    printf(\"Empty tree\\n\");\n                else {\n                    printf(\"Inorder traversal: \");\n                    inorder(root);\n                    printf(\"\\n\");\n                }\n                break;\n            case 3:\n                if (root == NULL)\n                    printf(\"Empty tree\\n\");\n                else {\n                    printf(\"Preorder traversal: \");\n                    preorder(root);\n                    printf(\"\\n\");\n                }\n                break;\n            case 4:\n                if (root == NULL)\n                    printf(\"Empty tree\\n\");\n                else {\n                    printf(\"Postorder traversal: \");\n                    postorder(root);\n                    printf(\"\\n\");\n                }\n                break;\n            case 5:\n                if (root == NULL)\n                    printf(\"Empty tree\\n\");\n                else {\n                    printf(\"The tree is:\\n\");\n                    display(root, 1);\n                    printf(\"\\n\");\n                }\n                break;\n            case 6:\n                search();\n                break;\n            case 7:\n                exit(0);\n            default:\n                printf(\"Invalid choice\\n\");\n                break;\n        }\n    }\n}\nvoid insert() {\n    NODE newnode, prev, curr;\n    newnode = (NODE)malloc(sizeof(struct node));\n    printf(\"Enter the element to be inserted in the tree: \");\n    scanf(\"%d\", &newnode->data);\n    newnode->lchild = newnode->rchild = NULL;\n    if (root == NULL) {\n        root = newnode;\n        return;\n    }\n    prev = NULL;\n    curr = root;\n    while (curr != NULL) {\n        if (curr->data == newnode->data) {\n            printf(\"Duplicate is not allowed\\n\");\n            free(newnode);\n            return;\n        }\n        prev = curr;\n        if (newnode->data < curr->data)\n            curr = curr->lchild;\n        else\n            curr = curr->rchild;\n    }\n    if (newnode->data < prev->data)\n        prev->lchild = newnode;\n    else\n        prev->rchild = newnode;\n}\nvoid search() {\n    int key;\n    NODE curr;\n    printf(\"Enter the element to be searched: \");\n    scanf(\"%d\", &key);\n    if (root == NULL) {\n        printf(\"Tree is empty\\n\");\n        return;\n    }\n    curr = root;\n    while (curr != NULL) {\n        if (curr->data == key) {\n            printf(\"Number found\\n\");\n            return;\n        }\n        if (key < curr->data)\n            curr = curr->lchild;\n        else\n            curr = curr->rchild;\n    }\n    printf(\"Number not found\\n\");\n}\nvoid inorder(NODE root) {\n    if (root != NULL) {\n        inorder(root->lchild);\n        printf(\"%4d\", root->data);\n        inorder(root->rchild);\n    }\n}\nvoid preorder(NODE root) {\n    if (root != NULL) {\n        printf(\"%4d\", root->data);\n        preorder(root->lchild);\n        preorder(root->rchild);\n    }\n}\nvoid postorder(NODE root) {\n    if (root != NULL) {\n        postorder(root->lchild);\n        postorder(root->rchild);\n        printf(\"%4d\", root->data);\n    }\n}\nvoid display(NODE root, int level) {\n    int i;\n    if (root) {\n        display(root->rchild, level + 1);\n        printf(\"\\n\");\n        for (i = 0; i < level; i++)\n            printf(\"\\t\");\n        printf(\"%d\", root->data);\n        display(root->lchild, level + 1);\n    }\n}"
+  },
+  {
+    "serial": 10,
+    "title": "Hashing Using Linear Probing",
+    "description": "Design, Develop and implement hashing program in C for Collision detection using Linear Probing technique.",
+    "explanation": "Hash function uses key % 97. If a collision occurs, the program searches sequentially for the next empty slot. Provides display options to show all entries or only filled slots.",
+    "example": {
+      "input": "Data: 2, then 3",
+      "output": "Collision handling by linear probing:\n2 -> 2\n3 -> 3"
+    },
+    "keywords": ["hashing", "linear probing", "collision detection", "hash table"],
+    "code": "#include <stdio.h>\n#include <stdlib.h>\n#define MAX 100\nint create(int);\nvoid linear_prob(int[], int, int);\nvoid display(int[]);\nint main() {\n    int a[MAX], num, key, i;\n    int ans = 1;\n    printf(\"Collision handling by linear probing:\\n\");\n    for (i = 0; i < MAX; i++)\n        a[i] = -1;\n    do {\n        printf(\"\\n Enter the data: \");\n        scanf(\"%d\", &num);\n        key = create(num);\n        linear_prob(a, key, num);\n        printf(\"\\n Do you wish to continue ? (1/0): \");\n        scanf(\"%d\", &ans);\n    } while (ans);\n    display(a);\n    return 0;\n}\nint create(int num) {\n    int key;\n    key = num % 97;\n    return key;\n}\nvoid linear_prob(int a[MAX], int key, int num) {\n    int flag, i, count = 0;\n    flag = 0;\n    if (a[key] == -1)\n        a[key] = num;\n    else {\n        printf(\"\\n Collision Detected...!!!\\n\");\n        i = 0;\n        while (i < MAX) {\n            if (a[i] != -1)\n                count++;\n            i++;\n        }\n        printf(\"Collision avoided successfully using LINEAR PROBING\\n\");\n        if (count == MAX) {\n            printf(\"\\n Hash table is full\");\n            display(a);\n            exit(1);\n        }\n        for (i = key + 1; i < MAX; i++)\n            if (a[i] == -1) {\n                a[i] = num;\n                flag = 1;\n                break;\n            }\n        i = 0;\n        while ((i < key) && (flag == 0)) {\n            if (a[i] == -1) {\n                a[i] = num;\n                flag = 1;\n                break;\n            }\n            i++;\n        }\n    }\n}\nvoid display(int a[MAX]) {\n    int i, choice;\n    while (1) {\n        printf(\"\\n\\n 1.Display ALL\\n 2.Filtered Display\\n 3.Exit\\n\");\n        scanf(\"%d\", &choice);\n        switch (choice) {\n            case 1:\n                printf(\"\\n The hash table is:\\n\");\n                for (i = 0; i < MAX; i++)\n                    printf(\"\\n %d -> %d\", i, a[i]);\n                break;\n            case 2:\n                printf(\"\\n The hash table is:\\n\");\n                for (i = 0; i < MAX; i++)\n                    if (a[i] != -1)\n                        printf(\"\\n %d -> %d\", i, a[i]);\n                break;\n            case 3:\n                exit(0);\n            default:\n                printf(\"Invalid choice. Try again.\\n\");\n        }\n    }\n}"
+  }
+]

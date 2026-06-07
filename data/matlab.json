@@ -1,0 +1,146 @@
+[
+  {
+    "serial": 1,
+    "title": "Measures of Central Tendency",
+    "description": "Compute and compare arithmetic mean, median, mode, geometric mean, and harmonic mean for engineering data.",
+    "explanation": "The program reads data as a vector and computes different measures of central tendency and displays them with a bar chart.",
+    "example": {
+      "input": "[1 2 2 3 4 5 7 8 8 4 3 3 2 3]",
+      "output": "Arithmetic Mean = 3.9286, Median = 3.0000, Mode = 3.0000, Geometric Mean = 3.3584, Harmonic Mean = 2.8420"
+    },
+    "keywords": [
+      "mean",
+      "median",
+      "mode",
+      "geometric mean",
+      "harmonic mean",
+      "statistics"
+    ],
+    "code": "clc;\nclear;\ndata = input('Enter the data values as a vector [ ]: ');\nAM = mean(data);\nMED = median(data);\nMOD = mode(data);\nif all(data > 0)\n    GM = geomean(data);\nelse\n    GM = NaN;\n    disp('Geometric mean not defined for non-positive data.');\nend\nif all(data ~= 0)\n    HM = harmmean(data);\nelse\n    HM = NaN;\n    disp('Harmonic mean not defined when data contains zero.');\nend\nfprintf('\\nMeasures of Central Tendency:\\n');\nfprintf('Arithmetic Mean = %.4f\\n', AM);\nfprintf('Median = %.4f\\n', MED);\nfprintf('Mode = %.4f\\n', MOD);\nfprintf('Geometric Mean = %.4f\\n', GM);\nfprintf('Harmonic Mean = %.4f\\n', HM);\nmeans = [AM, MED, MOD, GM, HM];\nlabels = {'AM', 'Median', 'Mode', 'GM', 'HM'};\nfigure;\nbar(means);\nset(gca, 'XTickLabel', labels);\nxlabel('Measure Type');\nylabel('Value');\ntitle('Comparison of Measures of Central Tendency');\ngrid on;\nfor i = 1:length(means)\n    text(i, means(i), sprintf('%.2f', means(i)),'HorizontalAlignment', 'center','VerticalAlignment', 'bottom','FontSize', 10, 'FontWeight', 'bold');\nend"
+  },
+  {
+    "serial": 2,
+    "title": "Measures of Dispersion",
+    "description": "Analyze data dispersion using range, quartile deviation, mean deviation, standard deviation, and variance.",
+    "explanation": "This program evaluates different measures that describe the spread of data and displays them with a bar chart.",
+    "example": {
+      "input": "[12 15 18 20 25 30 30]",
+      "output": "Range = 18.0000, Quartile Deviation = 6.5000, Mean Deviation = 5.9184, Standard Deviation = 7.1147, Variance = 50.6190"
+    },
+    "keywords": [
+      "range",
+      "quartile deviation",
+      "mean deviation",
+      "standard deviation",
+      "variance"
+    ],
+    "code": "clc;\nclear;\ndata = input('Enter the data values as a vector [ ]: ');\nn = length(data);\nRange = max(data) - min(data);\nQ1 = prctile(data, 25);\nQ3 = prctile(data, 75);\nQD = (Q3 - Q1) / 2;\nMeanVal = mean(data);\nMD = sum(abs(data - MeanVal)) / n;\nSD = std(data);\nVAR = var(data);\nfprintf('\\nMeasures of Dispersion:\\n');\nfprintf('Range = %.4f\\n', Range);\nfprintf('Quartile Deviation = %.4f\\n', QD);\nfprintf('Mean Deviation = %.4f\\n', MD);\nfprintf('Standard Deviation = %.4f\\n', SD);\nfprintf('Variance = %.4f\\n', VAR);\ndispersionValues = [Range, QD, MD, SD, VAR];\nlabels = {'Range', 'QD', 'MD', 'SD', 'Variance'};\nfigure;\nbar(dispersionValues);\nset(gca, 'XTickLabel', labels);\nxlabel('Dispersion Measure');\nylabel('Value');\ntitle('Comparison of Measures of Dispersion');\ngrid on;\nfor i = 1:length(dispersionValues)\n    text(i, dispersionValues(i), sprintf('%.2f', dispersionValues(i)), 'HorizontalAlignment', 'center','VerticalAlignment', 'bottom','FontSize', 10, 'FontWeight', 'bold');\nend"
+  },
+  {
+    "serial": 3,
+    "title": "Angle Between Two Surfaces",
+    "description": "Compute the angle between two surfaces at a given point and visualize the results.",
+    "explanation": "Gradients of both surfaces at a point give normal vectors. The angle between the normals gives the angle between the surfaces.",
+    "example": {
+      "input": "Point (1, 1), f = x^2 + y^2, g = 2x + y",
+      "output": "Angle between the two surfaces at (1.00, 1.00) = 18.43 degrees"
+    },
+    "keywords": [
+      "surface",
+      "gradient",
+      "angle",
+      "normal vector",
+      "visualization"
+    ],
+    "code": "clc;\nclear;\nclose all;\nsyms x y\nf = x^2 + y^2;\ng = 2*x + y;\ngrad_f = gradient(f, [x y]);\ngrad_g = gradient(g, [x y]);\nx0 = 1;\ny0 = 1;\nN1 = double(subs(grad_f, [x y], [x0 y0]));\nN2 = double(subs(grad_g, [x y], [x0 y0]));\ntheta = acosd(dot(N1, N2) / (norm(N1) * norm(N2)));\nfprintf('Angle between the two surfaces at (%.2f, %.2f) = %.2f degrees\\n', x0, y0, theta);\n[X, Y] = meshgrid(-3:0.2:3, -3:0.2:3);\nZ1 = X.^2 + Y.^2;\nZ2 = 2*X + Y;\nfigure;\nsurf(X, Y, Z1, 'FaceAlpha', 0.6);\nhold on;\nsurf(X, Y, Z2, 'FaceAlpha', 0.6);\nz1p = x0^2 + y0^2;\nz2p = 2*x0 + y0;\nquiver3(x0, y0, z1p, N1(1), N1(2), -1, 'k', 'LineWidth', 2);\nquiver3(x0, y0, z2p, N2(1), N2(2), -1, 'r', 'LineWidth', 2);\nlegend('Surface 1', 'Surface 2', 'Normal to Surface 1', 'Normal to Surface 2');\ntitle('Angle Between Two Surfaces at a Point');\nxlabel('x');\nylabel('y');\nzlabel('z');\ngrid on;\nview(3);"
+  },
+  {
+    "serial": 4,
+    "title": "Linear Curve Fitting y = ax + b",
+    "description": "Fit a linear curve of the form y = ax + b to experimental data using the least squares method.",
+    "explanation": "Uses normal equations to compute slope and intercept for the best fit straight line.",
+    "example": {
+      "input": "x = [1 2 3 4 5], y = [2.1 4.0 6.1 8.2 9.9]",
+      "output": "Best fit line: y = 1.9800 x + 0.1200"
+    },
+    "keywords": [
+      "curve fitting",
+      "least squares",
+      "linear",
+      "regression"
+    ],
+    "code": "clc;\nclear;\nclose all;\nx = input('Enter the independent variable data x as a vector [ ]: ');\ny = input('Enter the dependent variable data y as a vector [ ]: ');\nn = length(x);\nSx = sum(x);\nSy = sum(y);\nSxx = sum(x.^2);\nSxy = sum(x.*y);\nA = [Sxx Sx; Sx n];\nB = [Sxy; Sy];\ncoeff = A \\ B;\na = coeff(1);\nb = coeff(2);\nfprintf('\\nBest fit line: y = %.4f x + %.4f\\n', a, b);\ny_fit = a*x + b;\nfigure;\nplot(x, y, 'o', 'MarkerSize', 8, 'LineWidth', 2);\nhold on;\nplot(x, y_fit, '-', 'LineWidth', 2);\ngrid on;\nxlabel('x (Independent Variable)');\nylabel('y (Dependent Variable)');\nlegend('Experimental Data', 'Best Fit Line', 'Location', 'best');"
+  },
+  {
+    "serial": 5,
+    "title": "Power Curve Fitting y = ax^b",
+    "description": "Fit a power curve of the form y = ax^b to experimental data using the least squares method.",
+    "explanation": "Log transform converts the nonlinear power-law relation into a linear form for least squares fitting.",
+    "example": {
+      "input": "x = [1 2 3 4 5], y = [2.0 4.1 8.9 15.8 25.2]",
+      "output": "Best fit curve: y = 1.7138 x^{1.5840}"
+    },
+    "keywords": [
+      "nonlinear fitting",
+      "power law",
+      "least squares",
+      "logarithm"
+    ],
+    "code": "clc;\nclear;\nclose all;\nx = input('Enter the independent variable data x as a vector [ ]: ');\ny = input('Enter the dependent variable data y as a vector [ ]: ');\nif any(x <= 0) || any(y <= 0)\n    error('Both x and y values must be positive for power-law fitting.');\nend\nX = log(x);\nY = log(y);\nn = length(x);\nSx = sum(X);\nSy = sum(Y);\nSxx = sum(X.^2);\nSxy = sum(X.*Y);\nA = [Sxx Sx; Sx n];\nB = [Sxy; Sy];\ncoeff = A \\ B;\nb = coeff(1);\nln_a = coeff(2);\na = exp(ln_a);\nfprintf('\\nBest fit curve: y = %.4f x^{%.4f}\\n', a, b);\ny_fit = a * x.^b;\nfigure;\nplot(x, y, 'o', 'MarkerSize', 8, 'LineWidth', 2);\nhold on;\nplot(x, y_fit, '-', 'LineWidth', 2);\ngrid on;\nxlabel('x (Independent Variable)');\nylabel('y (Dependent Variable)');\nlegend('Experimental Data', 'Best Fit Curve', 'Location', 'best');"
+  },
+  {
+    "serial": 6,
+    "title": "Quadratic Curve Fitting y = ax\u00b2 + bx + c",
+    "description": "Fit a quadratic curve of the form y = ax\u00b2 + bx + c to experimental data using the least squares method.",
+    "explanation": "Uses polynomial regression (normal equations for degree 2) to compute the best fit quadratic equation.",
+    "example": {
+      "input": "x = [1 2 3 4 5], y = [3.1 5.9 10.8 18.2 27.9]",
+      "output": "Best fit quadratic curve: y = 1.1643 x^2 + -0.7957 x + 2.7600"
+    },
+    "keywords": [
+      "polynomial fitting",
+      "quadratic",
+      "least squares",
+      "curve fitting"
+    ],
+    "code": "clc;\nclear;\nclose all;\nx = input('Enter the independent variable data x as a vector [ ]: ');\ny = input('Enter the dependent variable data y as a vector [ ]: ');\nn = length(x);\nSx = sum(x);\nSx2 = sum(x.^2);\nSx3 = sum(x.^3);\nSx4 = sum(x.^4);\nSy = sum(y);\nSxy = sum(x.*y);\nSx2y = sum(x.^2 .* y);\nA = [Sx4 Sx3 Sx2; Sx3 Sx2 Sx; Sx2 Sx n];\nB = [Sx2y; Sxy; Sy];\ncoeff = A \\ B;\na = coeff(1);\nb = coeff(2);\nc = coeff(3);\nfprintf('\\nBest fit quadratic curve:\\n');\nfprintf('y = %.4f x^2 + %.4f x + %.4f\\n', a, b, c);\nx_fit = linspace(min(x), max(x), 200);\ny_fit = a*x_fit.^2 + b*x_fit + c;\nfigure;\nplot(x, y, 'o', 'MarkerSize', 8, 'LineWidth', 2);\nhold on;\nplot(x_fit, y_fit, '-', 'LineWidth', 2);\ngrid on;\nxlabel('x (Independent Variable)');\nylabel('y (Dependent Variable)');\nlegend('Experimental Data', 'Best Fit Curve', 'Location', 'best');"
+  },
+  {
+    "serial": 7,
+    "title": "Binomial Distribution Simulation and Analysis",
+    "description": "Simulate a binomial distribution using random sampling and compare the sample mean and variance with theoretical values.",
+    "explanation": "Generates random samples from a binomial distribution using given parameters n and p, then computes and compares sample statistics with theoretical mean and variance. Also visualizes the distribution using a histogram and overlays the theoretical PMF.",
+    "example": {
+      "input": "n = 10, p = 0.5, N = 1000",
+      "output": "Theoretical Mean = 5.000000, Sample Mean \u2248 4.958000, Theoretical Variance = 2.500000"
+    },
+    "keywords": [
+      "binomial distribution",
+      "random sampling",
+      "mean",
+      "variance",
+      "PMF",
+      "histogram"
+    ],
+    "code": "clc;\nclear;\nclose all;\n\nn = input('Enter number of trials (n): ');\np = input('Enter probability of success (p): ');\nN = input('Enter number of samples: ');\n\ndata = binornd(n, p, N, 1);\n\nsample_mean = mean(data);\nsample_variance = var(data);\n\ntheoretical_mean = n*p;\ntheoretical_variance = n*p*(1-p);\n\nfprintf('Theoretical Mean = %f\\n', theoretical_mean);\nfprintf('Sample Mean = %f\\n', sample_mean);\nfprintf('Theoretical Variance = %f\\n', theoretical_variance);\nfprintf('Sample Variance = %f\\n', sample_variance);\n\nfigure;\nhistogram(data, 'Normalization', 'pdf');\nhold on;\n\nx = 0:n;\npmf = binopdf(x, n, p);\nstem(x, pmf, 'r', 'LineWidth', 2);\n\ntitle(['Binomial Distribution (n = ', num2str(n), ', p = ', num2str(p), ')']);\nxlabel('x');\nylabel('Probability');\nlegend('Histogram', 'PMF');\ngrid on;"
+  },
+  {
+    "serial": 8,
+    "title": "Poisson Distribution Simulation and Analysis",
+    "description": "Simulate a Poisson distribution using random sampling and compare the sample mean and variance with theoretical values.",
+    "explanation": "Generates random samples from a Poisson distribution using parameter lambda, then computes and compares sample statistics with theoretical mean and variance. Also visualizes the distribution using a histogram and overlays the theoretical PMF.",
+    "example": {
+      "input": "lambda = 5, n = 1000",
+      "output": "Theoretical Mean = 5.000000\nSample Mean = 5.086000\nTheoretical Variance = 5.000000\nSample Variance = 5.063668"
+    },
+    "keywords": [
+      "poisson distribution",
+      "random sampling",
+      "mean",
+      "variance",
+      "PMF",
+      "histogram"
+    ],
+    "code": "clc;\nclear;\nclose all;\n\nlambda = input('Enter lambda: ');\nn = input('Enter number of samples: ');\n\ndata = poissrnd(lambda, n, 1);\n\nsample_mean = mean(data);\nsample_variance = var(data);\n\ntheoretical_mean = lambda;\ntheoretical_variance = lambda;\n\nfprintf('Theoretical Mean = %f\\n', theoretical_mean);\nfprintf('Sample Mean = %f\\n', sample_mean);\nfprintf('Theoretical Variance = %f\\n', theoretical_variance);\nfprintf('Sample Variance = %f\\n', sample_variance);\n\nfigure;\nhistogram(data, 'Normalization', 'pdf');\nhold on;\n\nx = min(data):max(data);\npmf = poisspdf(x, lambda);\nstem(x, pmf, 'r', 'LineWidth', 2);\n\ntitle(['Poisson Distribution (lambda = ', num2str(lambda), ')']);\nxlabel('x');\nylabel('Probability');\nlegend('Histogram', 'PMF');\ngrid on;"
+  }
+]
